@@ -63,7 +63,7 @@ const QuotesList = () => {
           toggleView ? `md:max-w-6xl` : `md:max-w-5xl`
         } z-50`}
       >
-        <div className="flex justify-between items-center md:left-auto fixed  p-3 bg-white dark:bg-stone-900 font-sourGummy font-semibold w-full  z-40">
+        <div className="flex justify-between items-center  md:left-auto fixed  p-3 bg-white dark:bg-stone-900 font-sourGummy font-semibold w-full  z-40">
           <div className="flex flex-col">
             <h1 className="text-xl md:text-3xl">Quotes</h1>
 
@@ -72,7 +72,7 @@ const QuotesList = () => {
             </p>
           </div>
           <div
-            className={`flex gap-3 absolute  left-72 ${
+            className={`flex gap-3 absolute  left-80 ${
               !toggleView ? ` md:left-2/4` : `md:left-2/3`
             }`}
           >
