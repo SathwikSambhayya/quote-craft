@@ -8,6 +8,9 @@ In the project directory, you can run:
 ### `npm i`
 To install node modules
 
+### `if npm install throws error do run:`
+npm i --force
+
 ### `npm start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -19,3 +22,6 @@ Run these commands to get started:
 npm i
 npm start
 
+if npm install throws error do run:
+npm i --force
+npm start
