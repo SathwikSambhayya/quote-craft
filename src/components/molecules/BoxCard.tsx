@@ -11,13 +11,6 @@ export const BoxCard = ({
   return (
     <>
       <div
-        // style={{
-        //   border: "1px solid black",
-        //   width: "30",
-        //   margin: "10px",
-        //   alignItems: "center",
-        //   borderRadius: "2px",
-        // }}
         className="border-3  shadow-stone-900 shadow-custom border-stone-900 p-3 dark:shadow-white dark:border-gray-200 dark:bg-stone-900"
       >
         <div className="relative md:w-full md:h-56 w-full">
@@ -38,9 +31,6 @@ export const BoxCard = ({
             {text}
           </p>
         </div>
-        {/* {item.name.firstname} */}
-        {/* {item.email} */}
-        {/* {item.phone} */}
         <div className="p-3 mt-2 flex flex-col gap-y-2">
         <p className="text-lg font-semibold">Name: <span className="font-normal">{userName}</span></p>
         <p className="text-lg font-semibold">Created at:<span className="font-normal"> {date}</span></p>

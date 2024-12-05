@@ -76,7 +76,7 @@ const CreateQuote = () => {
         );
 
         if (response.ok) {
-          toast("Quote created successfully!", {});
+          toast("Quote created successfully!",{position:"bottom-left"});
           navigate(APP_ROUTES.QUOTES_LIST);
         }
       } catch (error) {
