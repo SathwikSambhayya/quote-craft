@@ -12,12 +12,10 @@ const QuotesList = () => {
   const [quoteList, setQuoteList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [toggleView, setViewType] = useState(true);
-  const params = new URLSearchParams(window.location.search);
+  const [buttonVisible, setButtonVisible] = useState(false);
 
-  const [offSet, setOffset] = useState(parseInt(params.get("offset")) || 0);
-  const [itemsPerPage, setItemsPerPage] = useState(
-    parseInt(params.get("itemsPerPage")) || 10
-  );
+  const [offSet, setOffset] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [noDataAvailable, setNoDataAvailable] = useState(false);
   const navigate = useNavigate();
   const fetchData = async () => {
@@ -36,7 +34,7 @@ const QuotesList = () => {
       );
       const quotesInfo = await quotesData.json();
       if (quotesInfo.data.length > 0) {
-        setQuoteList(quotesInfo?.data);
+        setQuoteList((prev) => [...prev, ...quotesInfo?.data]);
       } else {
         setNoDataAvailable(true);
       }
@@ -53,11 +51,46 @@ const QuotesList = () => {
     fetchData();
   }, [offSet, itemsPerPage]);
 
-  if (loading) {
-    return <Loader />;
-  }
+  const loadmore = () => {
+    setOffset((prev) => prev + 1);
+  };
+
+  const handleScroll = () => {
+    if (window.scrollY > 20) {
+      setButtonVisible(true);
+    } else {
+      if (window.scrollY == 0) {
+        setButtonVisible(false);
+      }
+    }
+
+    if (
+      window.innerHeight + window.scrollY + 5 >=
+      document.documentElement.scrollHeight
+    ) {
+      if (!loading && !noDataAvailable) {
+        loadmore();
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScroll);
+
+    return () => document.removeEventListener("scroll", handleScroll);
+  }, [noDataAvailable, loading]);
+
+  // if (loading) {
+  //   return <Loader />;
+  // }
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
-    <div className="mt-12 dark:bg-stone-900 w-screen min-h-full ">
+    <div className="mt-12 dark:bg-stone-900 w-screen min-h-full relative">
       <div
         className={`mx-auto   ${
           toggleView ? `md:max-w-6xl` : `md:max-w-5xl`
@@ -70,6 +103,14 @@ const QuotesList = () => {
             <p className="text-sm md:text-xl">
               View the quotes added by our users
             </p>
+            {window.scrollY > 20 && (
+              <Button
+                className="fixed bottom-0  md:right-24 md:bottom-8 text-lg cursor-pointer text-blue-400 bg-white right-3"
+                onClick={scrollToTop}
+              >
+                ⬆️Scroll to top
+              </Button>
+            )}
           </div>
           <div
             className={`flex gap-3 absolute  left-80 ${
@@ -123,12 +164,13 @@ const QuotesList = () => {
             </div>
           </>
         )}
-        <Pagination
+        {loading && <div className="text-xl text-center p-4">Loading...</div>}
+        {/* <Pagination
           itemCount={quoteList?.length}
           setOffset={setOffset}
           offSet={offSet}
           setItemsPerPage={setItemsPerPage}
-        />
+        /> */}
         {noDataAvailable && (
           <p className="text-4xl font-sourGummy font-semibold">
             No Data Available

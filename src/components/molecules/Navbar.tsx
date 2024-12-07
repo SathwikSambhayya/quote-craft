@@ -17,7 +17,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   };
   return (
     <header
-      className={`z-50 fixed top-0 right-0 w-full p-4 bg-white dark:bg-stone-900 transition-all ${
+      className={`z-50 fixed top-0 right-0 w-full p-4 md:px-4 bg-white dark:bg-stone-900 transition-all ${
         darkMode ? "dark" : ""
       } font-sourGummy md:px-28 py-3 shadow-sm`}
     >
